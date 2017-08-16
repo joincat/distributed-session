@@ -1,0 +1,38 @@
+group 'distributed-session'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+apply plugin: 'jetty'
+
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    ext.servlet_version = "2.5"
+    ext.jedis_version = "2.7.2"
+    ext.spring_version = "4.1.2.RELEASE"
+    ext.log4j_version = "1.2.17"
+    ext.slf4j_log4j_version = "1.6.1"
+    ext.junit_version = "4.12"
+    ext.common_lang3_version = "3.6"
+
+    ext.servlet = ["javax.servlet:servlet-api:$servlet_version"]
+    ext.redis = ["redis.clients:jedis:$jedis_version"]
+    ext.log = ["log4j:log4j:$log4j_version", "org.slf4j:slf4j-log4j12:$slf4j_log4j_version"]
+    ext.spring = ["org.springframework:spring-core:$spring_version",
+                  "org.springframework:spring-context:$spring_version",
+                  "org.springframework:spring-context-support:$spring_version",
+                  "org.springframework:spring-web:$spring_version"]
+    ext.apache = ["commons-io:commons-io:2.0.1",
+                  "commons-codec:commons-codec:1.5",
+                  "commons-lang:commons-lang:2.6"]
+    ext.junit = ["junit:junit:$junit_version"]
+
+    compile spring, servlet, redis, log , apache
+    testCompile junit
+}

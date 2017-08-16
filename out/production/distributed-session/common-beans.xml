@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="cookieConfig" class="com.wind.web.session.CookieConfig">
+        <property name="domain" value=""/>
+        <property name="secure" value="false"/>
+        <property name="maxAge" value="1800"/>
+    </bean>
+
+    <bean id="redisSessionManager" class="com.wind.web.redis.RedisSessionManager">
+        <property name="redisServer" value="99.48.66.113^6379^1qaz@WSX,99.48.66.13^6379^1qaz@WSX"/>
+        <property name="connectionTimeout" value="3000"/>
+        <property name="readTimeout" value="3000"/>
+        <property name="maxTotal" value="1000"/>
+        <property name="maxIdle" value="50"/>
+        <property name="maxWaitMillis" value="3000"/>
+    </bean>
+
+    <bean id="sessionFilter" class="com.wind.web.filter.SessionFilter">
+        <property name="ignorePath" value="/user/"/>
+        <property name="cookieConfig" ref="cookieConfig"/>
+        <property name="redisSessionManager" ref="redisSessionManager" />
+    </bean>
+
+</beans>
